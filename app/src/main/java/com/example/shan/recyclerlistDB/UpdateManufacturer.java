@@ -28,7 +28,6 @@ public class UpdateManufacturer extends AppCompatActivity {
     }
 
     public void onUpdateManufacturer(View view){
-
         String name = etManufacturer.getText().toString();
         Intent intent = new Intent();
         intent.putExtra("operation", "update");

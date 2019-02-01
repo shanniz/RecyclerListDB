@@ -40,9 +40,6 @@ public class DBHelper extends SQLiteOpenHelper {
         this.context = context;
     }
 
-    /*public DBHelper(Context context){
-        super(context, DBName, null, 1);
-    }*/
 
     // Create Tables
     @Override
@@ -89,21 +86,21 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // Get all Manufacturers
     public List<Manufacturer> getAllManufacturers() {
-        List<Manufacturer> contactList = new ArrayList<Manufacturer>();
+        List<Manufacturer> mList = new ArrayList<Manufacturer>();
         String selectQuery = "SELECT  * FROM " + TableName;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
             do {
-                Manufacturer oem = new Manufacturer(Integer.parseInt(cursor.getString(0)),
+                Manufacturer oem = new Manufacturer(
+                        Integer.parseInt(cursor.getString(0)),
                         cursor.getString(1),
                         cursor.getString(2));
-                contactList.add(oem);
+                mList.add(oem);
             } while (cursor.moveToNext());
         }
-
-        return contactList;
+        return mList;
     }
 
     // Update manufacturer
@@ -113,6 +110,7 @@ public class DBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(Name, oem.getName());
         values.put(Phone, oem.getPhone());
+        values.put(Address, oem.getAddress());
 
         // updating row
         return db.update(TableName, values, KeyID + " = ?",
@@ -120,14 +118,13 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // Delete a manufacturer
-    public void deleteManufacturer(Manufacturer oem) {
+    public void deleteManufacturer(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TableName, KeyID + " = ?",
-                new String[] { String.valueOf(oem.getId()) });
-        //db.close();
+                new String[] { String.valueOf(id) });
     }
 
-    // Getting Manufacturers Count
+    /*// Getting Manufacturers Count
     public int getManufacturersCount() {
         String countQuery = "SELECT  * FROM " + TableName;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -135,5 +132,5 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
 
         return cursor.getCount();
-    }
+    }*/
 }

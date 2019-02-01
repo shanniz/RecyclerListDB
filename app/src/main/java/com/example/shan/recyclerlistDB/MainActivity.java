@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity
         }
         //Toast.makeText(this, data.getStringExtra("operation"), Toast.LENGTH_LONG).show();
         if (data.getStringExtra("operation").compareTo( "delete")==0){
-            mydb.deleteManufacturer(this.itemClicked);
+            mydb.deleteManufacturer(this.itemClicked.getId());
         }else if (data.getStringExtra("operation").compareTo( "update") == 0){
             this.itemClicked.setName(data.getStringExtra("name"));
             mydb.updateManufacturer(this.itemClicked);
