@@ -16,6 +16,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements MyRecyclerViewAdapter.ItemClickListener {
     //https://shanniz.github.io/courses/index.html
+
+    //https://github.com/shanniz/RecyclerListDB
+
     private MyRecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
     private Manufacturer itemClicked;

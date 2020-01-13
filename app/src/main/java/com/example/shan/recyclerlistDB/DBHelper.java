@@ -24,13 +24,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static DBHelper getDBHelper(Context context) {
         if (singleton == null) {
             singleton = new DBHelper(context);
-            //SQLiteOpenHelper openHelper = new SQLiteOpenHelper(singleton.context);
-            //singleton.db = openHelper.getWritableDatabase();
         }
-        //if(!singleton.db.isOpen()){
-        //    OpenHelper openHelper = new OpenHelper(singleton.context);
-        //    singleton.db = openHelper.getWritableDatabase();
-        //}
         singleton.context = context;
         return singleton;
     }

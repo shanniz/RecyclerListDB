@@ -8,42 +8,54 @@
     tools:layout_marginLeft="22dp">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/llContainer"
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
         <Button
-            android:id="@+id/btbAdd"
+            android:id="@+id/btnAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_marginStart="135dp"
+            android:layout_marginTop="96dp"
             android:onClick="addManufacturer"
             android:text="Add" />
-        
+
+
+        <EditText
+            android:id="@+id/manufacturerAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/manufacturerName"
+            android:layout_alignParentTop="true"
+            android:hint="Manufacturer Address" />
+
         <EditText
             android:id="@+id/manufacturerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Manufacturer Name"
-            />
-        </LinearLayout>
-    </LinearLayout>
+            android:layout_alignStart="@+id/llContainer"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="45dp"
+            android:hint="Manufacturer Name" />
 
-
+    </RelativeLayout>
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvManufacturer"
-        android:layout_below="@id/llContainer"
         android:layout_width="206dp"
         android:layout_height="334dp"
+        android:layout_below="@id/llContainer"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="29dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
