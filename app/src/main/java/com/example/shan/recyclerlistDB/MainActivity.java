@@ -16,9 +16,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity
         implements MyRecyclerViewAdapter.ItemClickListener {
     //https://shanniz.github.io/courses/index.html
-
     //https://github.com/shanniz/RecyclerListDB
 
+    EditText mEditTextManufacturerName, mEditTextManufacturerAddress;
     private MyRecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
     private Manufacturer itemClicked;
@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mEditTextManufacturerName = (EditText)findViewById(R.id.manufacturerName);
+        mEditTextManufacturerAddress = (EditText)findViewById(R.id.manufacturerAddress);
+
         recyclerView = findViewById(R.id.rvManufacturer);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         listManufacturers();
@@ -40,7 +43,8 @@ public class MainActivity extends AppCompatActivity
         this.itemClicked = adapter.getItem(position);
         Intent intent = new Intent(this, UpdateManufacturer.class);
         intent.putExtra("manufacturerName", this.itemClicked.getName());
-        //startActivity(intent);
+        String add = this.itemClicked.getAddress();
+        intent.putExtra("manufacturerAddress", this.itemClicked.getAddress());
         startActivityForResult(intent, 1);
     }
 
@@ -55,16 +59,18 @@ public class MainActivity extends AppCompatActivity
             mydb.deleteManufacturer(this.itemClicked.getId());
         }else if (data.getStringExtra("operation").compareTo( "update") == 0){
             this.itemClicked.setName(data.getStringExtra("name"));
+            this.itemClicked.setAddress(data.getStringExtra("address"));
             mydb.updateManufacturer(this.itemClicked);
         }
         listManufacturers();
     }
 
     public void addManufacturer(View view){
-        EditText et = (EditText)findViewById(R.id.manufacturerName);
-        mydb.insertManufacturer(et.getText().toString());
+        mydb.insertManufacturer(mEditTextManufacturerName.getText().toString(),
+                mEditTextManufacturerAddress.getText().toString());
         listManufacturers();
-        et.setText("");
+        mEditTextManufacturerName.setText("");
+        mEditTextManufacturerAddress.setText("");
     }
     public void listManufacturers(){
         List<Manufacturer> OEMs = mydb.getAllManufacturers();

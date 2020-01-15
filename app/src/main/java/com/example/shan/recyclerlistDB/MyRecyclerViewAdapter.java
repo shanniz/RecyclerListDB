@@ -21,7 +21,6 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         this.mData = data;
     }
 
-
     // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -33,7 +32,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Manufacturer manufacturer = mData.get(position);
-        holder.myTextView.setText(manufacturer.getName());
+        holder.myTextViewName.setText(manufacturer.getName());
+        holder.myTextViewAddress.setText(manufacturer.getAddress());
     }
 
     // total number of rows
@@ -46,17 +46,20 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
-        TextView myTextView;
+        TextView myTextViewName, myTextViewAddress;
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.tvManufacturerName);
+            myTextViewName = itemView.findViewById(R.id.tvManufacturerName);
+            myTextViewAddress = itemView.findViewById(R.id.tvManufacturerAddress);
+
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
+            if (mClickListener != null)
+                mClickListener.onItemClick(view, getAdapterPosition());
         }
     }
 

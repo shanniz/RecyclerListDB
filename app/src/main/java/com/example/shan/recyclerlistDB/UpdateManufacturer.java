@@ -8,16 +8,20 @@ import android.widget.EditText;
 
 public class UpdateManufacturer extends AppCompatActivity {
 
-    EditText etManufacturer;
+    EditText mEditTextManufacturerName, mEditTextManufacturerAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_manufacturer);
 
-        String man = getIntent().getStringExtra("manufacturerName");
-        etManufacturer = (EditText) findViewById(R.id.manufacturerEdit);
-        etManufacturer.setText(man);
+        String name = getIntent().getStringExtra("manufacturerName");
+        mEditTextManufacturerName = (EditText) findViewById(R.id.editTextManufacturerName);
+        mEditTextManufacturerName.setText(name);
+
+        String address = getIntent().getStringExtra("manufacturerAddress");
+        mEditTextManufacturerAddress = (EditText) findViewById(R.id.editTextManufacturerAddress);
+        mEditTextManufacturerAddress.setText(address);
     }
 
     public void onDeleteManufacturer(View view){
@@ -28,10 +32,13 @@ public class UpdateManufacturer extends AppCompatActivity {
     }
 
     public void onUpdateManufacturer(View view){
-        String name = etManufacturer.getText().toString();
+        String name = mEditTextManufacturerName.getText().toString();
+        String address = mEditTextManufacturerName.getText().toString();
+
         Intent intent = new Intent();
         intent.putExtra("operation", "update");
         intent.putExtra("name", name );
+        intent.putExtra("address", address);
         setResult(RESULT_OK, intent);
         finish();
     }

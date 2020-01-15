@@ -56,10 +56,11 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertManufacturer(String name){
+    public void insertManufacturer(String name, String address){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(Name, name);
+        contentValues.put(Address, address);
         db.insert(TableName, null, contentValues);
     }
 
@@ -82,7 +83,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public List<Manufacturer> getAllManufacturers() {
         List<Manufacturer> mList = new ArrayList<Manufacturer>();
         String selectQuery = "SELECT  * FROM " + TableName;
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
@@ -90,7 +91,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 Manufacturer oem = new Manufacturer(
                         Integer.parseInt(cursor.getString(0)),
                         cursor.getString(1),
-                        cursor.getString(2));
+                        cursor.getString(2),
+                        cursor.getString(3));
                 mList.add(oem);
             } while (cursor.moveToNext());
         }
